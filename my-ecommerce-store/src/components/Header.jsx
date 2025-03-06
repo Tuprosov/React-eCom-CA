@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import Navbar from "./nav.jsx";
+import Searchbar from "./SeachBar.jsx";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setisSearchOpen] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,37 +21,7 @@ function Header() {
 
   return (
     <header className="bg-white shadow-md py-4 px-6 relative">
-      <div className="flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <img src="/path-to-your-logo.png" alt="Logo" className="h-8" />
-          <span className="text-xl font-bold">MyStore</span>
-        </div>
-
-        {/* Desktop Navigation */}
-        <Navbar isMobile={false} />
-
-        {/* Search bar and icons */}
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="px-4 py-2 border rounded-lg w-64"
-            />
-            <FaSearch className="absolute top-3 right-3 text-gray-600" />
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <Link to="/cart">
-              <FaShoppingCart className="text-xl text-gray-600 cursor-pointer" />
-            </Link>
-            <Link to="/profile">
-              <FaUser className="text-xl text-gray-600 cursor-pointer" />
-            </Link>
-          </div>
-        </div>
-
+      <div className="flex items-center justify-between min-h-[45px]">
         {/* Burger Menu Button */}
         <div className="md:hidden flex items-center">
           <button
@@ -69,6 +41,36 @@ function Header() {
               <path d="M3 6h18M3 12h18M3 18h18"></path>
             </svg>
           </button>
+        </div>
+
+        {/* Logo */}
+        <div className="flex items-center space-x-2">
+          <img src="/path-to-my-logo.png" alt="Logo" className="h-8" />
+          {/* <span className="text-xl font-bold">MyStore</span> */}
+        </div>
+
+        {/* Desktop Navigation */}
+        <Navbar isMobile={false} />
+
+        {/* Search bar and icons */}
+        <div
+          className={`flex items-center space-x-4 ${
+            isSearchOpen ? "min-w-[40%]" : ""
+          }`}
+        >
+          <Searchbar
+            isSearchOpen={isSearchOpen}
+            setIsSearchOpen={setisSearchOpen}
+          />
+
+          <div className="flex items-center space-x-4">
+            <Link to="/cart">
+              <FaShoppingCart className="text-xl text-gray-600 cursor-pointer" />
+            </Link>
+            <Link to="/profile">
+              <FaUser className="text-xl text-gray-600 cursor-pointer" />
+            </Link>
+          </div>
         </div>
       </div>
 
