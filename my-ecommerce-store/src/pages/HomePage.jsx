@@ -1,10 +1,10 @@
-import Header from "../components/Header.jsx";
+import HeroSection from "../components/Hero";
 
 function HomePage() {
   return (
-    <main>
-      <Header />
-    </main>
+    <div>
+      <HeroSection />
+    </div>
   );
 }
 
