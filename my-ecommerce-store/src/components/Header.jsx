@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import Navbar from "./nav.jsx";
 import Searchbar from "./SeachBar.jsx";
 
