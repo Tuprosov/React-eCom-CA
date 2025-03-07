@@ -12,7 +12,7 @@ function Navbar({ isMobile, isMenuOpen }) {
           transition={{ duration: 0.3 }}
           className={`${
             isMobile
-              ? "absolute top-16 left-0 w-full bg-white shadow-md p-4 md:hidden"
+              ? "absolute top-16 left-0 w-full bg-white shadow-md p-4 md:hidden z-100"
               : "hidden md:flex space-x-8"
           }`}
         >
