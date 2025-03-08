@@ -4,7 +4,7 @@ import { FaShoppingCart, FaUser } from "react-icons/fa";
 import Navbar from "./nav.jsx";
 import Searchbar from "./SeachBar.jsx";
 
-function Header() {
+function Header({ products, setFilteredProducts }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setisSearchOpen] = useState(true);
 
@@ -59,8 +59,10 @@ function Header() {
           }`}
         >
           <Searchbar
+            products={products}
             isSearchOpen={isSearchOpen}
             setIsSearchOpen={setisSearchOpen}
+            setFilteredProducts={setFilteredProducts}
           />
 
           <div className="flex items-center space-x-4">
