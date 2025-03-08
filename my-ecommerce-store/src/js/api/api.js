@@ -5,26 +5,48 @@ export class API {
   }
 
   //Search Products
+  // async searchProducts(query) {
+  //   try {
+  //     const response = await fetch(
+  //       `${this.baseURL}/search?q=${encodeURIComponent(query)}`
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`Failed to fetch Products: ${response.statusText}`);
+  //     }
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error("Error fetching search results:", error);
+  //     throw error;
+  //   }
+  // }
+
+  // Modify searchProducts function
   async searchProducts(query) {
     try {
-      const response = await fetch(
-        `${this.baseURL}/search?q=${encodeURIComponent(query)}`
-      );
+      const url = new URL(`${this.baseURL}/search`);
+      url.searchParams.append("q", query.trim());
+      console.log(url);
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: headers(),
+      });
+
       if (!response.ok) {
         throw new Error(`Failed to fetch Products: ${response.statusText}`);
       }
+
       return await response.json();
     } catch (error) {
       console.error("Error fetching search results:", error);
-      throw error;
+      return [];
     }
   }
 
-  // Get 12 products
-  async getProducts(limit = 4, page = 1) {
+  // Get products
+  async getProducts() {
     const url = new URL(this.baseURL);
-    url.searchParams.append("limit", limit);
-    url.searchParams.append("page", page);
+
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -45,8 +67,6 @@ export class API {
   async getProductById(id) {
     const url = new URL(this.baseURL);
     const newUrl = new URL(`${url}/${id}`);
-    newUrl.searchParams.append("_seller", true);
-    newUrl.searchParams.append("_bids", true);
 
     try {
       const response = await fetch(newUrl, {
