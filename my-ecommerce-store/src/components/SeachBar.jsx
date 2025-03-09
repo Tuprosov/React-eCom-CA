@@ -2,11 +2,19 @@ import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProducts } from "../js/productContext";
+import { useLocation } from "react-router-dom";
 
 function Searchbar({ isSearchOpen, setIsSearchOpen }) {
   const [query, setQuery] = useState("");
   const { products, setProducts } = useProducts();
   const [allProducts, setAllProducts] = useState([]);
+  const location = useLocation(); // Get current location
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setQuery(""); // Clear input when homepage loads
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (products.length > 0 && allProducts.length === 0) {
