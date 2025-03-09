@@ -5,7 +5,7 @@ function Arrivals() {
   const { products, loading } = useProducts(); // For Context API
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <h3>Loading...</h3>;
   }
 
   return (
