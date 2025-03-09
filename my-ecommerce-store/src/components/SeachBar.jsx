@@ -14,7 +14,6 @@ function Searchbar({ isSearchOpen, setIsSearchOpen }) {
       setAllProducts(products);
     }
   }, [products]);
-  console.log("All products", allProducts);
 
   useEffect(() => {
     const handleResize = () => {
