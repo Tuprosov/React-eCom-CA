@@ -44,10 +44,12 @@ function Header({ products, setFilteredProducts }) {
         </div>
 
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <img src="/path-to-my-logo.png" alt="Logo" className="h-8" />
-          {/* <span className="text-xl font-bold">MyStore</span> */}
-        </div>
+        <Link to="/">
+          <div className="flex items-center space-x-2">
+            <img src="/path-to-my-logo.png" alt="Logo" className="h-8" />
+            {/* <span className="text-xl font-bold">MyStore</span> */}
+          </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <Navbar isMobile={false} />
