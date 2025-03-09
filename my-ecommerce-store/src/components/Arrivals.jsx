@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useProducts } from "../js/productContext";
 import ProductCard from "./ProductCard";
 
 function Arrivals() {
-  const { products, loading } = useOutletContext();
+  const { products, loading } = useProducts(); // For Context API
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
