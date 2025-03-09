@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import Navbar from "./nav.jsx";
 import Searchbar from "./SeachBar.jsx";
@@ -7,6 +8,8 @@ import Searchbar from "./SeachBar.jsx";
 function Header({ products, setFilteredProducts }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setisSearchOpen] = useState(true);
+  const cart = useSelector((state) => state.cart.cart);
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,8 +71,13 @@ function Header({ products, setFilteredProducts }) {
           />
 
           <div className="flex items-center space-x-4">
-            <Link to="/cart">
+            <Link to="/cart" className="relative">
               <FaShoppingCart className="text-xl text-gray-600 cursor-pointer" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-black text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                  {totalItems}
+                </span>
+              )}
             </Link>
             <Link to="/profile">
               <FaUser className="text-xl text-gray-600 cursor-pointer" />
