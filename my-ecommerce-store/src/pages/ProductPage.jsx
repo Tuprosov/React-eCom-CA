@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../js/store/cartSlice";
 
 function StarRating({ rating }) {
   const stars = [];
@@ -22,12 +24,12 @@ function StarRating({ rating }) {
   return <div className="flex">{stars}</div>;
 }
 
-function ProductPage({ addToCart }) {
+function ProductPage() {
   const { id } = useParams();
-  console.log("id", id);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -35,6 +37,7 @@ function ProductPage({ addToCart }) {
       try {
         const data = await api.getProductById(id);
         setProduct(data.data);
+        console.log("Product data", data.data);
       } catch (err) {
         setError("Failed to fetch product");
       } finally {
@@ -56,7 +59,7 @@ function ProductPage({ addToCart }) {
     : product.image
     ? [{ url: product.image.url, alt: product.image.alt }]
     : [];
-  console.log("images", images);
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
@@ -90,7 +93,7 @@ function ProductPage({ addToCart }) {
       </div>
       <button
         className="mt-4 bg-black text-white py-2 px-6 rounded-3xl hover:bg-gray-800 transition"
-        onClick={() => addToCart(product)}
+        onClick={() => dispatch(addToCart(product))}
       >
         Add to Cart
       </button>
