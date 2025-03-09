@@ -1,60 +1,20 @@
-// import { useEffect } from "react";
-// import { FaSearch } from "react-icons/fa";
-// import { motion, AnimatePresence } from "framer-motion";
-
-// function Searchbar({ isSearchOpen, setIsSearchOpen }) {
-//   useEffect(() => {
-//     const handleResize = () => {
-//       setIsSearchOpen(window.innerWidth >= 850); // Automatically open the search bar on larger screens
-//     };
-
-//     handleResize(); // Set initial state based on window size
-//     window.addEventListener("resize", handleResize);
-
-//     return () => window.removeEventListener("resize", handleResize);
-//   }, [setIsSearchOpen]);
-
-//   return (
-//     <>
-//       {isSearchOpen ? (
-//         <AnimatePresence>
-//           <motion.div
-//             key="search-bar"
-//             initial={{ opacity: 0, x: 50 }}
-//             animate={{ opacity: 1, x: 0 }}
-//             exit={{ opacity: 0, x: 50 }}
-//             transition={{ duration: 0.3 }}
-//             className="relative flex-grow"
-//           >
-//             <FaSearch className="absolute top-3 left-3 text-gray-400" />
-//             <input
-//               type="text"
-//               placeholder="Search products..."
-//               className="w-full px-8 py-2 border rounded-3xl"
-//             />
-//           </motion.div>
-//         </AnimatePresence>
-//       ) : (
-//         <button onClick={() => setIsSearchOpen(!isSearchOpen)}>
-//           <FaSearch className="text-gray-600" />
-//         </button>
-//       )}
-//     </>
-//   );
-// }
-
-// export default Searchbar;
-
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
-import { API } from "../js/api/api";
-import { API_BASE } from "../js/constants";
+import { useProducts } from "../js/productContext";
 
-function Searchbar({ products, setProducts, isSearchOpen, setIsSearchOpen }) {
+function Searchbar({ isSearchOpen, setIsSearchOpen }) {
   const [query, setQuery] = useState("");
-  //   const api = new API(`${API_BASE}`);
+  const { products, setProducts } = useProducts();
+  const [allProducts, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    if (products.length > 0 && allProducts.length === 0) {
+      // this will only run once bcs allProducts won't change
+      setAllProducts(products);
+    }
+  }, [products]);
+  console.log("All products", allProducts);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,20 +26,20 @@ function Searchbar({ products, setProducts, isSearchOpen, setIsSearchOpen }) {
     return () => window.removeEventListener("resize", handleResize);
   }, [setIsSearchOpen]);
 
-  // handle search
-  const handleSearch = (e) => {
-    const searchQuery = e.target.value;
-    setQuery(searchQuery);
-
-    // Use searchQuery directly for filtering
-    if (Array.isArray(products)) {
-      console.log("products", products);
+  //   handle search
+  useEffect(() => {
+    if (query.trim() === "") {
+      setProducts(allProducts); // If the query is empty, show all products
+    } else {
+      const filtered = allProducts.filter((product) =>
+        product.title.toLowerCase().includes(query.toLowerCase())
+      );
+      setProducts(filtered); // Update filtered products
     }
+  }, [query]); // Watch query
 
-    const filtered = products.filter((product) =>
-      product.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setProducts(filtered);
+  const handleSearch = (e) => {
+    setQuery(e.target.value); // Only update query, filtering is handled by useEffect
   };
 
   return (
