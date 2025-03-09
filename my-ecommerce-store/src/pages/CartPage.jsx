@@ -1,18 +1,16 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // For navigation
-
-// Sample cart data
-const sampleCart = [
-  { id: 1, name: "Product 1", price: 20, quantity: 2 },
-  { id: 2, name: "Product 2", price: 30, quantity: 1 },
-];
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart, clearCart } from "../js/store/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function CartPage() {
+  const cart = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Calculate the total price
-  const total = sampleCart.reduce(
-    (acc, product) => acc + product.price * product.quantity,
+  const total = cart.reduce(
+    (acc, product) =>
+      acc + (product.discountedPrice ?? product.price) * product.quantity,
     0
   );
 
@@ -25,22 +23,32 @@ function CartPage() {
     <div className="max-w-3xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
 
-      {sampleCart.length > 0 ? (
+      {cart.length > 0 ? (
         <div>
           <ul className="space-y-4">
-            {sampleCart.map((product) => (
+            {cart.map((product) => (
               <li
                 key={product.id}
                 className="flex justify-between items-center border-b pb-4"
               >
                 <div>
-                  <h3 className="font-semibold">{product.name}</h3>
-                  <p className="text-gray-500">Price: ${product.price}</p>
+                  <h3 className="font-semibold">{product.title}</h3>
+                  <p className="text-gray-500">
+                    Price: ${product.discountedPrice ?? product.price}
+                  </p>
                   <p className="text-gray-500">Quantity: {product.quantity}</p>
                 </div>
                 <p className="font-semibold">
-                  ${product.price * product.quantity}
+                  $
+                  {(product.discountedPrice ?? product.price) *
+                    product.quantity}
                 </p>
+                <button
+                  onClick={() => dispatch(removeFromCart(product.id))}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 transition"
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>
