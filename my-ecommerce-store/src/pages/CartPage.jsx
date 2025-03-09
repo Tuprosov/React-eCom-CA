@@ -16,7 +16,7 @@ function CartPage() {
 
   // Handle checkout button click
   const handleCheckout = () => {
-    navigate("/checkout-success"); // Navigate to the success page
+    navigate("/checkout"); // Navigate to the checkout page
   };
 
   return (
