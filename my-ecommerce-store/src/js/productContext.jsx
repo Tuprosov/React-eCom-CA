@@ -26,7 +26,7 @@ export function ProductProvider({ children }) {
   }, []); // Empty dependency array means this will only run once on component mount
 
   return (
-    <ProductContext.Provider value={{ products, loading }}>
+    <ProductContext.Provider value={{ products, setProducts, loading }}>
       {children}
     </ProductContext.Provider>
   );
