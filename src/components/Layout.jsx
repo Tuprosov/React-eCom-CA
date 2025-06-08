@@ -6,7 +6,6 @@ import { ProductProvider } from "../js/productContext";
 
 function Layout() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   return (
     <ProductProvider value={{ products, setProducts }}>

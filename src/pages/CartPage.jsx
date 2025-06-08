@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, clearCart } from "../js/store/cartSlice";
+import { removeFromCart } from "../js/store/cartSlice";
 import { useNavigate } from "react-router-dom";
 
 function CartPage() {

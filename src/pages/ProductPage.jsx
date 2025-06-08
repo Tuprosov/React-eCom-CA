@@ -103,8 +103,8 @@ function ProductPage() {
           <Swiper
             modules={[Navigation]}
             navigation
-            spaceBetween={20} // Space between reviews
-            slidesPerView="auto" // Adjust to show multiple slides as needed
+            spaceBetween={20}
+            slidesPerView="auto"
             className="w-full max-w-md mx-auto"
           >
             {product.reviews.map((review, index) => (
