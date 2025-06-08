@@ -32,12 +32,12 @@ export class API {
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch Products: ${response.statusText}`);
+        throw new Error("Search failed. Try again");
       }
 
       return await response.json();
     } catch (error) {
-      console.error("Error fetching search results:", error);
+      throw error;
       return [];
     }
   }
@@ -47,39 +47,46 @@ export class API {
     const url = new URL(this.baseURL);
 
     try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: headers(),
-      });
+      const response = await this.attemptFetch(url);
       if (!response.ok) {
-        throw new Error("Failed to fetch Products");
+        throw new Error("Failed to fetch products. Try again later");
       }
 
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
-      console.error("Error fetching Products:", error);
+      throw error;
     }
   }
 
   // Get a specific product by ID
   async getProductById(id) {
-    const url = new URL(this.baseURL);
-    const newUrl = new URL(`${url}/${id}`);
+    const url = new URL(`${this.baseURL}/${id}`);
 
     try {
-      const response = await fetch(newUrl, {
-        method: "GET",
-        headers: headers(),
-      });
+      const response = await this.attemptFetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch product");
       }
 
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
-      console.error("Error fetching product", error);
+      throw error;
+    }
+  }
+
+  async attemptFetch(url, retries = 4, delay = 1000) {
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: headers(),
+      });
+      return response;
+    } catch (error) {
+      if (retries > 0) {
+        await new Promise((res) => setTimeout(res, delay));
+        return this.attemptFetch(url, retries - 1, delay * 2);
+      }
+      throw error;
     }
   }
 }
