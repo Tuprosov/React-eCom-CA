@@ -2,7 +2,7 @@ import { useProducts } from "../js/productContext";
 import ProductCard from "./ProductCard";
 
 function Arrivals() {
-  const { products, loading } = useProducts(); // For Context API
+  const { products, loading, error } = useProducts(); // For Context API
 
   if (loading) {
     return <h3>Loading...</h3>;
@@ -12,7 +12,7 @@ function Arrivals() {
     return (
       <div>
         <h2 className="text-2xl font-bold text-center mb-6">New Arrivals</h2>
-        <h3>Products not found</h3>
+        <h3>Products not found.{error}</h3>
       </div>
     );
   }
