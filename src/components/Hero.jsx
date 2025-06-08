@@ -1,16 +1,8 @@
 function HeroSection() {
   return (
-    <section className="relative w-full h-[500px] md:h-[600px] flex items-center justify-end bg-gray-200">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center"
-        style={{
-          backgroundImage: "url('https://via.placeholder.com/1200x600')",
-        }}
-      ></div>
-
+    <section className="w-full h-auto flex xl:flex-row flex-col-reverse items-center justify-end bg-gray-200 p-12 overflow-hidden gap-8">
       {/* Content */}
-      <div className="relative z-10 max-w-lg p-6 md:p-12 bg-gray-200 bg-opacity-90 rounded-lg shadow-lg mr-6 md:mr-16">
+      <div className="max-w-lg p-6 bg-gray-200 bg-opacity-90 rounded-lg shadow-lg">
         <h1 className="text-3xl md:text-5xl font-bold text-black">
           Discover the Latest Trends
         </h1>
@@ -24,6 +16,13 @@ function HeroSection() {
           Shop Now
         </a>
       </div>
+
+      {/* Image */}
+      <img
+        src="https://placehold.co/1200x600?text=Placeholder&font=roboto"
+        alt="Shopping Hero"
+        className="w-full max-w-2xl xl:h-[400px] object-cover rounded-lg"
+      />
     </section>
   );
 }
