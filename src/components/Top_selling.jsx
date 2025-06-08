@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useProducts } from "../js/productContext";
 
 function TopSellers() {
-  const { products } = useProducts(); // For Context API
-  const [loading, setLoading] = useState(true);
+  const { topSelling, loading } = useProducts(); // For Context API
 
-  if (!products.length) {
+  if (loading) {
+    return <h3>Loading...</h3>;
+  }
+
+  if (!topSelling.length) {
     return (
       <div>
         <h2 className="text-2xl font-bold text-center mb-6">Top Selling</h2>
@@ -19,7 +21,7 @@ function TopSellers() {
     <section className="py-10">
       <h2 className="text-2xl font-bold text-center mb-6">Top Selling</h2>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
-        {products.slice(0, 4).map((product) => (
+        {topSelling.map((product) => (
           <li key={product.id}>
             <ProductCard {...product} />
           </li>

@@ -6,6 +6,7 @@ const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
+  const [topSelling, setTopSelling] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -16,6 +17,7 @@ export function ProductProvider({ children }) {
       try {
         const data = await api.getProducts();
         setProducts(data.data);
+        setTopSelling(data.data.slice(0, 4));
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -27,7 +29,9 @@ export function ProductProvider({ children }) {
   }, []); // Empty dependency array means this will only run once on component mount
 
   return (
-    <ProductContext.Provider value={{ products, setProducts, loading, error }}>
+    <ProductContext.Provider
+      value={{ products, topSelling, setProducts, loading, error }}
+    >
       {children}
     </ProductContext.Provider>
   );
