@@ -58,11 +58,7 @@ function Header() {
         <Navbar isMobile={false} />
 
         {/* Search bar and icons */}
-        <div
-          className={`flex items-center space-x-4 ${
-            isSearchOpen ? "min-w-[40%]" : ""
-          }`}
-        >
+        <div className="flex relative items-center space-x-4 justify-end">
           <Searchbar
             isSearchOpen={isSearchOpen}
             setIsSearchOpen={setisSearchOpen}
