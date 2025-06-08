@@ -63,6 +63,7 @@ function Searchbar({ isSearchOpen, setIsSearchOpen }) {
           >
             <FaSearch className="absolute top-3 left-3 text-gray-400" />
             <input
+              name="search-input"
               type="text"
               placeholder="Search products..."
               className="w-full px-8 py-2 border rounded-3xl"
