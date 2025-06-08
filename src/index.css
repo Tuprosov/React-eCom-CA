@@ -5,7 +5,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: transparent;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -73,5 +72,19 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.5em;
   }
 }
