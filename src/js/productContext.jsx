@@ -7,6 +7,7 @@ const ProductContext = createContext();
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +18,7 @@ export function ProductProvider({ children }) {
         setProducts(data.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        setError(error.message);
         setLoading(false);
       }
     };
@@ -26,7 +27,7 @@ export function ProductProvider({ children }) {
   }, []); // Empty dependency array means this will only run once on component mount
 
   return (
-    <ProductContext.Provider value={{ products, setProducts, loading }}>
+    <ProductContext.Provider value={{ products, setProducts, loading, error }}>
       {children}
     </ProductContext.Provider>
   );
