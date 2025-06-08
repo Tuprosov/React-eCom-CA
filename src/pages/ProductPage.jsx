@@ -106,9 +106,9 @@ function ProductPage() {
             slidesPerView="auto"
             className="w-full max-w-md mx-auto"
           >
-            {product.reviews.map((review, index) => (
+            {product.reviews.map((review) => (
               <SwiperSlide
-                key={index}
+                key={id}
                 className="flex flex-col items-center justify-center border p-3 rounded-md"
               >
                 <p className="font-semibold">{review.username}</p>
