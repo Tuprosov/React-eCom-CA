@@ -36,12 +36,12 @@ function Searchbar({ isSearchOpen, setIsSearchOpen }) {
   //   handle search
   useEffect(() => {
     if (query.trim() === "") {
-      setProducts(allProducts); // If the query is empty, show all products
+      return; // Ignore empty query
     } else {
       const filtered = allProducts.filter((product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
       );
-      setProducts(filtered); // Update filtered products
+      setProducts(filtered); // Update with filtered products
     }
   }, [query]); // Watch query
 

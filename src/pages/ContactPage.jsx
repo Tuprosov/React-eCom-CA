@@ -12,7 +12,7 @@ function ContactPage() {
   const [successMessage, setSuccessMessage] = useState("");
 
   const validateForm = () => {
-    let newErrors = {};
+    const newErrors = {};
     if (formData.fullName.trim().length < 3) {
       newErrors.fullName = "Full name must be at least 3 characters.";
     }
