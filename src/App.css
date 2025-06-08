@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-body {
-    background-color: transparent;
-}
 #root {
     font-family: "Satoshi", sans-serif;
     max-width: 1280px;
