@@ -25,7 +25,6 @@ export class API {
     try {
       const url = new URL(`${this.baseURL}/search`);
       url.searchParams.append("q", query.trim());
-      console.log(url);
 
       const response = await fetch(url, {
         method: "GET",

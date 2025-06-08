@@ -33,7 +33,6 @@ function ContactPage() {
     e.preventDefault();
 
     if (validateForm()) {
-      console.log("Form Data Submitted:", formData);
       setSuccessMessage("Your message has been sent successfully!");
       setFormData({ fullName: "", subject: "", email: "", body: "" });
     }

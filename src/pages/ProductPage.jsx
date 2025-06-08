@@ -37,7 +37,6 @@ function ProductPage() {
       try {
         const data = await api.getProductById(id);
         setProduct(data.data);
-        console.log("Product data", data.data);
       } catch (err) {
         setError("Failed to fetch product");
       } finally {

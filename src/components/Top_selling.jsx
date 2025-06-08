@@ -39,7 +39,6 @@ function TopSellers() {
           className="bg-black text-white py-2 px-6 rounded-3xl hover:bg-gray-800 transition"
           onClick={() => {
             // Handle "View All" button click
-            console.log("View All clicked");
             // You can add navigation logic here or a modal to show all products
           }}
         >
